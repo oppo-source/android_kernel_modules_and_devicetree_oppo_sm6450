@@ -1,0 +1,3 @@
+#include "tp/Milkyway-S3-24263-tp.dtsi"
+#include "sensor/milkyways35g-sensor-24263.dtsi"
+#include "oplus_uff/oplus_uff_24263.dtsi"

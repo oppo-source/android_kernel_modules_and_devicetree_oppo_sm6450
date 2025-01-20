@@ -1,0 +1,274 @@
+&pmk8350 {
+	/delete-node/ pon_hlos@1300;
+
+	pon_pmicwd@800 {
+		compatible = "oplus,pmicwd_qpnp-power-on";
+		qcom,pmicwd;
+	};
+
+	pon_hlos@1300 {
+		compatible = "qcom,pm8998-pon";
+		reg = <0x1300>, <0x800>;
+		reg-names = "pon_hlos", "pon_pbs";
+		qcom,log-kpd-event;
+
+		pwrkey {
+			compatible = "qcom,pmk8350-pwrkey";
+			interrupts = <0x0 0x13 0x7 IRQ_TYPE_EDGE_BOTH>;
+			linux,code = <KEY_POWER>;
+		};
+
+		resin {
+			compatible = "qcom,pmk8350-resin";
+			interrupts = <0x0 0x13 0x6 IRQ_TYPE_EDGE_BOTH>;
+			linux,code = <KEY_VOLUMEUP>;
+		};
+	};
+};
+
+&soc {
+	gpio_keys {
+		vol_up {
+			linux,code = <KEY_VOLUMEDOWN>;
+			debounce-interval = <32>;
+		};
+	};
+};
+
+&qupv3_se9_i2c{
+	status = "disabled";
+};
+
+&qupv3_se9_spi{
+	/delete-property/ pinctrl-0;
+	/delete-property/ pinctrl-1;
+	pinctrl-0 = <&qupv3_se9_spi_mosi_active>, <&qupv3_se9_spi_miso_active>,
+				<&qupv3_se9_spi_clk_active>, <&qupv3_se9_spi_cs_active>;
+	pinctrl-1 = <&qupv3_se9_spi_sleep>, <&qupv3_se9_spi_cs_sleep>;
+};
+
+&tlmm {
+//#ifdef OPLUS_FEATURE_TP_BASIC
+
+	ts_oplus_pins_default: pins_default {
+	};
+
+	pmx_ts_int_active {
+		ts_int_active: ts_int_active {
+			mux {
+				pins = "gpio65";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio65";
+				drive-strength = <8>;
+				bias-disable;
+				input-enable;
+			};
+		};
+	};
+
+	pmx_ts_reset_active {
+		ts_reset_active: ts_reset_active {
+			mux {
+				pins = "gpio64";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio64";
+				drive-strength = <8>;
+				output-low;
+				bias-disable;
+			};
+		};
+	};
+};
+
+&qupv3_se9_spi {
+    status = "ok";
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+	goodix-berlin@0 {
+		status = "disabled";
+	};
+
+    focaltech@0 {
+        compatible = "focaltech-FT3683g";
+        reg = <0x0>;
+        chip-name = "FT3683G";
+        status = "ok";
+
+        spi-max-frequency = <12000000>;
+
+        /* Interrupt && Irq-gpio */
+        interrupt-parent = <&tlmm>;
+        interrupts = <65 0x2002>;
+        irq-gpio = <&tlmm 65 0x2002>;
+        reset-gpio = <&tlmm 64 0x1>;
+
+        /* Power Config */
+        //enable2v8_gpio = <&tlmm 102 0x1>;
+        //enable1v8_gpio = <&tlmm 97 0x1>;
+        vdd_2v8-supply = <&L28B>;
+        vcc_1v8-supply = <&L19B>;
+        vdd_2v8_volt = <3300000>;
+
+        /* Other HW Resource */
+        pinctrl-names = "default";
+        pinctrl-0 = <&ts_oplus_pins_default>;
+
+        touchpanel,max-num-support = <10>;
+        touchpanel,tx-rx-num = <17 37>;
+        touchpanel,panel-coords = <17280 38592>;
+        touchpanel,display-coords = <1080 2412>;
+        touchpanel,touchmajor-limit = <128 216>;
+        touchpanel,smooth-level = <0 110 115 120 140 155>;
+		touchpanel,smooth-level-charging = <0 110 115 120 140 155>;
+		touchpanel,sensitive-level = <0 19 16 13 11 10>;
+        touchpanel,high-frame-rate-time = <60>;
+        touchpanel,single-optimized-time = <8>;
+
+        panel_type = <3 18>;
+        // type of tp_dev ,TP-BOE = 3;  TP-Tianma = 7, VXN = 18;
+        firmware_name = "0xAC240", "0xAC240";
+        platform_support_project = <24055 24279>;
+        platform_support_project_dir = <24055 24055>;
+        platform_support_project_commandline = "mdss_dsi_panel_ac240_p_3_a0004_cmd","mdss_dsi_panel_ac240_p_b_a0012_cmd";
+
+        /* SW Support Feature Control */
+        health_monitor_support;
+		black_gesture_support;
+		charger_pump_support;
+		//lcd_tp_refresh_support;
+		fw_update_app_support;
+		smart_gesture_support;
+		game_switch_support;
+		report_flow_unlock_support;
+		fingerprint_underscreen_support;
+		pressure_report_support;
+		//report_rate_white_list_support;
+		auto_test_force_pass_support;
+		snr_read_support;
+		//high_resolution_support;
+		screenoff_fingerprint_info_support;
+		irq_need_dev_resume_ok;
+		sportify_aod_gesture_support;
+		black_gesture_indep_support;
+		thermal_detect_support;
+		exception_upload_support;
+		tp_data_record_support;
+		palm_to_sleep_support;
+		glove_mode_v2_support;
+		freq_hop_simulate_support;
+		fw_edge_limit_support;
+		temperature_detect_support;
+		temperature_detect_shellback_support;
+
+
+        /*
+            *Virtual Key Config:
+            *1:touchpanel,button-type: <virtualkey_type  supportted_button-map>
+            *virtualkey_type:
+            *Type 1: using board_properties
+            *Type 2: using same IC (button zone&& touch zone are seprate)
+            *Type 3: using diffrent IC (button zone&& touch zone are seprate)
+            *Type 4: No need of virtual key process
+            *supportted_button-map:select|menu|home|back
+            *
+            *2:touchpanel,button-map
+            *type (X1,Y1)(X2,Y2)(X3,Y3)(Width_X,Hight_Y)--Only when button-type is 0
+        */
+        touchpanel,button-type = <4>;
+        touchpanel.button-TRx = <0 0>;
+    };
+};
+
+&tlmm {
+//#ifdef OPLUS_FEATURE_TP_BASIC
+	qupv3_se9_spi_pins: qupv3_se9_spi_pins {
+		qupv3_se9_spi_miso_active: qupv3_se9_spi_miso_active {
+			mux {
+				pins = "gpio10";
+				function = "qup1_se3_l0";
+			};
+
+			config {
+				pins = "gpio10";
+				drive-strength = <4>;
+				bias-disable;
+			};
+		};
+
+		qupv3_se9_spi_mosi_active: qupv3_se9_spi_mosi_active {
+			mux {
+				pins = "gpio11";
+				function = "qup1_se3_l1";
+			};
+
+			config {
+				pins = "gpio11";
+				drive-strength = <4>;
+				bias-disable;
+			};
+		};
+
+		qupv3_se9_spi_clk_active: qupv3_se9_spi_clk_active {
+			mux {
+				pins = "gpio12";
+				function = "qup1_se3_l2";
+			};
+
+			config {
+				pins = "gpio12";
+				drive-strength = <4>;
+				bias-disable;
+			};
+		};
+
+		qupv3_se9_spi_cs_active: qupv3_se9_spi_cs_active {
+			mux {
+				pins = "gpio13";
+				function = "qup1_se3_l3";
+			};
+
+			config {
+				pins = "gpio13";
+				drive-strength = <4>;
+				bias-disable;
+			};
+		};
+
+		qupv3_se9_spi_sleep: qupv3_se9_spi_sleep {
+			mux {
+				pins = "gpio10", "gpio11",
+					"gpio12";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio10", "gpio11",
+					"gpio12";
+				drive-strength = <4>;
+				//bias-disable;
+				bias-pull-down;
+			};
+		};
+		qupv3_se9_spi_cs_sleep: qupv3_se9_spi_cs_sleep {
+			mux {
+				pins = "gpio13";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio13";
+				drive-strength = <4>;
+				//bias-disable;
+				output-high;
+			};
+		};
+	};
+//#endif /*OPLUS_FEATURE_TP_BASIC*/
+};

@@ -1,0 +1,153 @@
+/* parrot-audio-overlay.dtsi */
+/* #ifdef OPLUS_ARCH_EXTENDS */
+/* add for soundcard */
+&lpass_cdc {
+	qcom,num-macros = <3>;
+};
+
+&wsa_macro {
+	status = "disabled";
+};
+
+&wsa2_macro {
+	status = "disabled";
+};
+
+&wsa883x_0221 {
+	status = "disabled";
+};
+
+&wsa883x_0222 {
+	status = "disabled";
+};
+
+&wsa883x_2_0221 {
+	status = "disabled";
+};
+
+&wsa883x_2_0222 {
+	status = "disabled";
+};
+
+&cdc_dmic01_gpios {
+	status = "disabled";
+};
+
+&cdc_dmic23_gpios {
+	status = "disabled";
+};
+
+&cdc_dmic45_gpios {
+	status = "disabled";
+};
+
+&cdc_dmic67_gpios {
+	status = "disabled";
+};
+
+&wcd938x_codec {
+	status = "disabled";
+};
+
+&wcd938x_tx_slave {
+	status = "disabled";
+};
+
+&wcd938x_rx_slave {
+	status = "disabled";
+};
+
+&wcd937x_codec {
+	status = "okay";
+};
+
+&wcd937x_tx_slave {
+	status = "okay";
+};
+
+&wcd937x_rx_slave {
+	status = "okay";
+};
+
+&wcd937x_codec {
+	qcom,cdc-micbias1-mv = <2700>;
+	qcom,cdc-micbias2-mv = <2700>;
+	qcom,cdc-micbias3-mv = <2700>;
+};
+
+&waipio_snd {
+	qcom,wcn-btfm = <1>;
+	qcom,mi2s-audio-intf = <0>;
+	qcom,audio-routing =
+			"AMIC1", "Analog Mic1",
+			"AMIC1", "MIC BIAS1",
+			"AMIC2", "Analog Mic2",
+			"AMIC2", "MIC BIAS2",
+			"AMIC3", "Analog Mic3",
+			"AMIC3", "MIC BIAS3",
+			"TX DMIC0", "Digital Mic0",
+			"TX DMIC0", "MIC BIAS3",
+			"TX DMIC1", "Digital Mic1",
+			"TX DMIC1", "MIC BIAS3",
+			"TX DMIC2", "Digital Mic2",
+			"TX DMIC2", "MIC BIAS1",
+			"TX DMIC3", "Digital Mic3",
+			"TX DMIC3", "MIC BIAS1",
+			"IN1_HPHL", "HPHL_OUT",
+			"IN2_HPHR", "HPHR_OUT",
+			"IN3_AUX", "AUX_OUT",
+			"RX_TX DEC0_INP", "TX DEC0 MUX",
+			"RX_TX DEC1_INP", "TX DEC1 MUX",
+			"RX_TX DEC2_INP", "TX DEC2 MUX",
+			"RX_TX DEC3_INP", "TX DEC3 MUX",
+			"TX SWR_INPUT", "WCD_TX_OUTPUT",
+			"VA SWR_INPUT", "VA_SWR_CLK",
+			"VA SWR_INPUT", "WCD_TX_OUTPUT",
+			"VA_AIF1 CAP", "VA_SWR_CLK",
+			"VA_AIF2 CAP", "VA_SWR_CLK",
+			"VA_AIF3 CAP", "VA_SWR_CLK";
+	qcom,msm-mbhc-hs-mic-max-threshold-mv = <2600>;
+	qcom,msm-mbhc-hs-mic-min-threshold-mv = <75>;
+	qcom,msm-mbhc-usbc-audio-supported = <1>;
+	qcom,msm-mbhc-hphl-swh = <0>;
+	qcom,msm-mbhc-gnd-swh = <1>;
+	oplus,mbhc-headset-micbias-alwayon = <1>;
+	qcom,cdc-dmic01-gpios;
+	qcom,cdc-dmic23-gpios;
+	qcom,cdc-dmic45-gpios;
+	asoc-codec  = <&stub_codec>, <&lpass_cdc>,
+		      <&wcd937x_codec>;
+	asoc-codec-names = "msm-stub-codec.1", "lpass-cdc",
+			   "wcd937x_codec";
+	qcom,wsa-max-devs = <0>;
+	oplus,speaker-pa = "sia81xx";
+	oplus,pa_manager = <1>;
+};
+
+&wsa_spkr_en1 {
+	status = "disabled";
+};
+
+&wsa_spkr_en2 {
+	status = "disabled";
+};
+
+&wsa2_spkr_en1 {
+	status = "disabled";
+};
+
+&wsa2_spkr_en2 {
+	status = "disabled";
+};
+
+&wcd_reset_active {
+	config {
+		drive-strength = <4>;
+	};
+};
+
+&wcd_reset_sleep {
+	config {
+		drive-strength = <4>;
+	};
+};

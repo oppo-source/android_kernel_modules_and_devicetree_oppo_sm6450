@@ -1,0 +1,71 @@
+&soc {
+  //#ifdef OPLUS_FEATURE_ESIM
+  oplus-gpio {
+    compatible = "oplus,oplus-gpio";
+    pinctrl-names = "oplus_esim";
+    pinctrl-0 = <&esim_gpio &esim_det_gpio &esim_en_gpio  &nfc_gpio0>;
+    oplus,oplus-gpio-esim = <&tlmm 103 1>;
+    oplus,oplus-esim-det = <&tlmm 111 0>;
+    oplus,oplus-esim-en = <&tlmm 31 0>;
+    oplus,oplus-nfc-gpio0 = <&tlmm 30 0>;
+    oplus,uim-reset-pin = "modem_solution";
+  };
+  oplus_sim_detect {
+    compatible = "oplus, sim_detect";
+    Hw,sim_det = "modem_det";
+  };
+  //#endif /*OPLUS_FEATURE_ESIM*/
+};
+&tlmm {
+	esim_gpio: esim_gpio {
+		mux {
+			pins = "gpio103";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio103";
+			drive-strength = <2>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
+
+	esim_det_gpio: esim_det_gpio {
+		mux {
+			pins = "gpio111";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio111";
+			drive-strength = <2>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
+
+	esim_en_gpio: esim_en_gpio {
+		mux {
+			pins = "gpio31";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio31";
+			drive-strength = <2>;
+			input-enable;
+			bias-pull-down;
+		};
+	};
+
+	nfc_gpio0: nfc_gpio0{
+		mux {
+			pins = "gpio30";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio30";
+			drive-strength = <2>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
+};

@@ -1,0 +1,95 @@
+&soc {
+	/* #ifdef CONFIG_OPLUS_FEATURE_BOOTLOADER_LOG */
+	bootloader_log {
+		compatible = "bootloader_log";
+		linux,contiguous-region = <&bootloader_log_mem>;
+	};
+	/* #endif CONFIG_OPLUS_FEATURE_BOOTLOADER_LOG */
+
+	/* #ifdef OPLUS_FEATURE_STABILITY */
+	/* Refer to /soc/qcom_ramoops in devicetree/qcom/parrot.dtsi, just adding an attribute 'console-size = <0x40000>;' */
+	qcom_ramoops {
+		compatible = "qcom,ramoops";
+		memory-region = <&ramoops_mem>;
+		pmsg-size = <0x200000>;
+		console-size = <0x40000>;
+		mem-type = <2>;
+	};
+	/* #endif OPLUS_FEATURE_STABILITY */
+	/* #ifdef OPLUS_FEATURE_SECURE_TYPE */
+	oplus_secure_common {
+		compatible = "oplus,secure_common";
+		oplus,sec_reg_num = <0x221C0094>;
+		oplus,sec_en_anti_reg = <0x221C011C>;
+		oplus,sec_override1_reg = <0x221C011C>;
+		oplus,override1_en_value = <0x1>;
+	};
+	/* #endif OPLUS_FEATURE_SECURE_TYPE */
+    oplus-pmic-monitor-log {
+        compatible = "oplus,pmic-monitor-log";
+        nvmem = <&pmk8350_sdam_5>, <&pmk8350_sdam_6>;
+        nvmem-names = "pon_log0", "pon_log1";
+    };
+    //#ifdef OPLUS_FEATURE_THERMAL_HORAE
+    shell_front {
+        compatible = "oplus,shell-temp";
+    };
+
+    shell_frame {
+        compatible = "oplus,shell-temp";
+    };
+
+    shell_back {
+        compatible = "oplus,shell-temp";
+    };
+    //#endif /* OPLUS_FEATURE_THERMAL_HORAE */
+
+    oplus-ocp-state-log {
+        compatible = "oplus,pmic-ocp-log";
+        nvmem-cells = <&ocp_log>;
+        nvmem-cell-names = "ocp_log";
+    };
+    dump_device_info {
+        compatible = "dump_device_info";
+        linux,contiguous-region = <&dump_device_info_mem>;
+    };
+};
+
+&reserved_memory {
+	/* #ifdef CONFIG_OPLUS_FEATURE_BOOTLOADER_LOG */
+	/* adapt for bootloader log for sm7435/sm6450 */
+	/*
+	This size is from
+	boot_images/boot/QcomPkg/SocPkg/Netrani/Common/uefiplat.cfg
+	0xA7605000, 0x00008000, "Log Buffer",        AddMem, SYS_MEM, SYS_MEM_CAP, RtData, WRITE_BACK_XN
+	so we reserve this for bootloader log
+	*/
+	bootloader_log_mem: botloader_mem@0xA7605000 {
+		reg = <0 0xA7605000 0 0x00008000>;
+		label = "bootloader_log_mem";
+	};
+	/* #endif CONFIG_OPLUS_FEATURE_BOOTLOADER_LOG */
+
+    dump_device_info_mem: device_info_mem@0xA4F00000 {
+        reg = <0 0xA4F00000 0 0x00008000>;
+        label = "dump_device_info_mem";
+    };
+};
+
+&pmk8350 {
+//#ifdef CONFIG_OPLUS_FEATURE_QCOM_PMICWD
+//pmicwd depend on pon_pbs@800
+    pon_pbs@800 {
+        compatible = "qcom,qpnp-power-on";
+        reg = <0x800>;
+        qcom,system-reset;
+        qcom,store-hard-reset-reason;
+    };
+
+    pon_pmicwd@800 {
+        compatible = "oplus,pmicwd_qpnp-power-on";
+        qcom,pmicwd;
+    };
+
+//#endif /* CONFIG_OPLUS_FEATURE_QCOM_PMICWD */
+};

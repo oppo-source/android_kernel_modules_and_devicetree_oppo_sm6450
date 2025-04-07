@@ -1,0 +1,15 @@
+#include "tp/AlphaM-24055-tp.dtsi"
+#include "oplus_uff/oplus_uff_24055.dtsi"
+
+&ufshc_mem {
+	vccq2-supply = <>;
+	vccq2-max-microamp = <>;
+	spm-level = <1>;
+	rpm-level = <1>;
+};
+&soc {
+	devinfo_alpham {
+		compatible = "oplus-devinfo";
+		without-hw-match;
+	};
+};

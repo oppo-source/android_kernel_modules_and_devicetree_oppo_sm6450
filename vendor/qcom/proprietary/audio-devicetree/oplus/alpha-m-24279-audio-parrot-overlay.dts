@@ -1,0 +1,11 @@
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/oplus/hw-id.h>
+#include "../parrot-audio-qrd.dts"
+#include "parrot_audio_overlay_common.dtsi"
+#include "alpha-m_24279_audio_overlay_common.dtsi"
+/ {
+    model = "Qualcomm Technologies, Inc. Parrot QRD, Alpha-M";
+
+    oplus,project-id = <24279 24055>;
+};

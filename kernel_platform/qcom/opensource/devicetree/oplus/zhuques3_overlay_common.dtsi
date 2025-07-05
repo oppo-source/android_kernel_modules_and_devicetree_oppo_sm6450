@@ -1,0 +1,3 @@
+#include "tp/Zhuque-S3-24336-tp.dtsi"
+#include "sensor/zhuques35g-sensor-24335.dtsi"
+#include "oplus_uff/oplus_uff_24335.dtsi"

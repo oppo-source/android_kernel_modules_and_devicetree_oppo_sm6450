@@ -1,0 +1,43 @@
+&waipio_snd {
+	oplus,mbhc-check-cross-conn = <1>;
+	oplus,mbhc-headset-detect-mode = <0>;
+	fsa4480-i2c-handle = <&fsa4480>;
+};
+
+&qupv3_se2_i2c {
+	status = "ok";
+	qcom,clk-freq-out = <400000>;
+
+	aw87xxx_pa@58 {
+		compatible = "awinic,aw87xxx_pa";
+		reg = <0x58>;
+		reset-gpio = <&tlmm 96 0>;
+		dev_index = < 0 >;
+		aw-rx-topo-id = <0x1000ff00>;
+		aw-rx-port-id = <0xB030>;
+		status = "okay";
+	};
+
+	aw87xxx_pa@5b {
+		compatible = "awinic,aw87xxx_pa";
+		reg = <0x5b>;
+		reset-gpio = <&tlmm 58 0>;
+		dev_index = < 1 >;
+		aw-rx-topo-id = <0x1000ff00>;
+		aw-rx-port-id = <0xB030>;
+		status = "okay";
+	};
+
+};
+
+/* add for audio bringup */
+&qupv3_se2_i2c {
+	status = "ok";
+	fsa4480: fsa4480@42 {
+		status = "ok";
+		compatible = "qcom,fsa4480-i2c";
+		fsa4480,switch-to-fast-charger-support = <1>;
+		reg = <0x42>;
+	};
+};
+

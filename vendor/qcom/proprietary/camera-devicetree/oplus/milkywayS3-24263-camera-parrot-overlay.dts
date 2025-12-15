@@ -1,0 +1,17 @@
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/qcom,gcc-parrot.h>
+#include <dt-bindings/clock/qcom,camcc-parrot.h>
+#include <dt-bindings/interconnect/qcom,parrot.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
+
+#include <dt-bindings/oplus/hw-id.h>
+#include "milkywayS3-24263_camera-overlay-common.dtsi"
+#include "regulator/aw37004.dtsi"
+/ {
+	model = "Qualcomm Technologies, Inc. Parrot QRD";
+	compatible = "qcom,parrot";
+	oplus,project-id = <24263 24264 24265>;
+};

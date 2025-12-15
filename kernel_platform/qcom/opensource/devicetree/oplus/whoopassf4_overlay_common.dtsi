@@ -1,0 +1,3 @@
+#include "tp/whoopass-f4-25231-tp.dtsi"
+#include "sensor/whoopasss35g-sensor-25231.dtsi"
+#include "oplus_uff/oplus_uff_25231.dtsi"

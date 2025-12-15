@@ -1,0 +1,67 @@
+&qupv3_se2_i2c {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "ok";
+    sgm38121@28{
+        compatible = "qualcomm,sgm38121";
+        reg = <0x28>;
+        status = "okay";
+
+		sgm38121_dvdd1:on,sgm38121@0{
+			offset = /bits/ 16 <0x0000>;
+			regulator-name ="sgm38121-dvdd1";
+			regulator-min-microvolt = <600000>;
+			regulator-max-microvolt = <1800000>;
+			min-dropout-voltage = <100000>;
+			init-voltage = <1050000>;
+			iout_ua = <650000>;
+		};
+
+		sgm38121_dvdd2:on,sgm38121@1{
+			offset = /bits/ 16 <0x0001>;
+			regulator-name ="sgm38121-dvdd2";
+			regulator-min-microvolt = <600000>;
+			regulator-max-microvolt = <1800000>;
+			min-dropout-voltage = <100000>;
+			init-voltage = <1200000>;
+			iout_ua = <650000>;
+		};
+
+		sgm38121_avdd1:on,sgm38121@2{
+			offset = /bits/ 16 <0x0002>;
+			regulator-name ="sgm38121-avdd1";
+			regulator-min-microvolt = <1200000>;
+			regulator-max-microvolt = <4300000>;
+			min-dropout-voltage = <200000>;
+			init-voltage = <2800000>;
+			iout_ua = <650000>;
+		};
+
+		sgm38121_avdd2:on,sgm38121@3{
+			offset = /bits/ 16 <0x0003>;
+			regulator-name ="sgm38121-avdd2";
+			regulator-min-microvolt = <1200000>;
+			regulator-max-microvolt = <4300000>;
+			min-dropout-voltage = <200000>;
+			init-voltage = <2800000>;
+			iout_ua = <650000>;
+		};
+    };
+    /*disable pm8010 for sm6450 @bugid 8283297*/
+    pm8010i@8 {
+        compatible = "qcom,i2c-pmic";
+        status = "disabled";
+    };
+    pm8010i@9 {
+       compatible = "qcom,i2c-pmic";
+       status = "disabled";
+    };
+    pm8010j@c {
+       compatible = "qcom,i2c-pmic";
+       status = "disabled";
+    };
+    pm8010j@d {
+       compatible = "qcom,i2c-pmic";
+       status = "disabled";
+    };
+};

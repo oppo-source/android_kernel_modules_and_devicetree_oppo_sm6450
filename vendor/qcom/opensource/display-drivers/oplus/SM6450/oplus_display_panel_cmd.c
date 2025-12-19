@@ -14,6 +14,7 @@
 #include "oplus_display_bl.h"
 #include "oplus_display_device_ioctl.h"
 #include "oplus_debug.h"
+#include "oplus_onscreenfingerprint.h"
 
 #define BACKLIGHT_CACHE_MAX 50
 
@@ -40,6 +41,9 @@ const char *cmd_set_prop_map[DSI_CMD_SET_MAX] = {
 	"qcom,mdss-dsi-lp1-command",
 	"qcom,mdss-dsi-lp2-command",
 	"qcom,mdss-dsi-nolp-command",
+	"qcom,mdss-dsi-nolp-60hz-command",
+	"qcom,mdss-dsi-nolp-90hz-command",
+	"qcom,mdss-dsi-nolp-120hz-command",
 	"PPS not parsed from DTSI, generated dynamically",
 	"ROI not parsed from DTSI, generated dynamically",
 	"qcom,mdss-dsi-timing-switch-command",
@@ -273,6 +277,9 @@ const char *cmd_set_state_map[DSI_CMD_SET_MAX] = {
 	"qcom,mdss-dsi-lp1-command-state",
 	"qcom,mdss-dsi-lp2-command-state",
 	"qcom,mdss-dsi-nolp-command-state",
+	"qcom,mdss-dsi-nolp-60hz-command-state",
+	"qcom,mdss-dsi-nolp-90hz-command-state",
+	"qcom,mdss-dsi-nolp-120hz-command-state",
 	"PPS not parsed from DTSI, generated dynamically",
 	"ROI not parsed from DTSI, generated dynamically",
 	"qcom,mdss-dsi-timing-switch-command-state",
@@ -611,6 +618,32 @@ int oplus_panel_cmd_switch(struct dsi_panel *panel, enum dsi_cmd_set_type *type)
 		*type = type_store;
 	}
 
+	return 0;
+}
+
+int oplus_panel_video_mode_aod_off_cmd_switch(struct dsi_panel *panel, enum dsi_cmd_set_type *type)
+{
+	unsigned int refresh_rate = 0;
+
+	if (!panel->oplus_panel.ramless_aod_mode_cmd_switch_support) {
+		OPLUS_DSI_DEBUG("video mode 30hz aod not enabled, no need to update aod type\n");
+		return 0;
+	}
+
+	OPLUS_DSI_TRACE_BEGIN("oplus_panel_video_mode_aod_off_cmd_switch");
+
+	refresh_rate = panel->cur_mode->timing.refresh_rate;
+	if (*type == DSI_CMD_SET_NOLP) {
+		if (refresh_rate == 60) {
+			*type = DSI_CMD_SET_NOLP_60HZ;
+		} else if (refresh_rate == 90) {
+			*type = DSI_CMD_SET_NOLP_90HZ;
+		} else if (refresh_rate == 120) {
+			*type = DSI_CMD_SET_NOLP_120HZ;
+		}
+	}
+
+	OPLUS_DSI_TRACE_END("oplus_panel_video_mode_aod_off_cmd_switch");
 	return 0;
 }
 

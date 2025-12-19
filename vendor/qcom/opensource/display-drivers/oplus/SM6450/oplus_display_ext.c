@@ -13,6 +13,7 @@
 #include "oplus_display_ext.h"
 #include "oplus_display_device_ioctl.h"
 #include "oplus_debug.h"
+#include "oplus_onscreenfingerprint.h"
 
 #define to_sde_encoder_phys_cmd(x) \
 	container_of(x, struct sde_encoder_phys_cmd, base)
@@ -160,6 +161,12 @@ void oplus_panel_switch_vid_mode_post(struct dsi_display *display, struct dsi_di
 
 	panel = display->panel;
 	crtc = display->drm_conn->state->crtc;
+
+	if(oplus_ofp_video_mode_30hz_aod_is_enabled() && panel->oplus_panel.ramless_aod_mode_cmd_switch_support && oplus_ofp_get_aod_state()) {
+		OPLUS_DSI_INFO("aod is on,skip switch vid mode!\n");
+		return;
+	}
+
 	default_refresh_cmds = panel->cur_mode->priv_info->cmd_sets[DSI_CMD_VID_60_SWITCH].cmds;
 
 	if (!panel->oplus_panel.vid_timming_switch_post_enabled) {

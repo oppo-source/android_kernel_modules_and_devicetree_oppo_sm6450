@@ -12,6 +12,11 @@
 #include <linux/component.h>
 #include <soc/soundwire.h>
 
+#ifdef OPLUS_ARCH_EXTENDS
+/* add qcom CR to reslove wcd937x-slave bind fail, CR2888685*/
+#define SWR_MAX_RETRY 5
+#endif /* OPLUS_ARCH_EXTENDS */
+
 struct wcd937x_slave_priv {
 	struct swr_device *swr_slave;
 };
@@ -23,6 +28,11 @@ static int wcd937x_slave_bind(struct device *dev,
 	struct wcd937x_slave_priv *wcd937x_slave = NULL;
 	uint8_t devnum = 0;
 	struct swr_device *pdev = to_swr_device(dev);
+
+#ifdef OPLUS_ARCH_EXTENDS
+/* add qcom CR to reslove wcd937x-slave bind fail, CR2888685*/
+	int retry = SWR_MAX_RETRY;
+#endif /* OPLUS_ARCH_EXTENDS */
 
 	if (pdev == NULL) {
 		dev_err(dev, "%s: pdev is NULL\n", __func__);
@@ -38,7 +48,16 @@ static int wcd937x_slave_bind(struct device *dev,
 
 	wcd937x_slave->swr_slave = pdev;
 
+#ifndef OPLUS_ARCH_EXTENDS
+/* add qcom CR to reslove wcd937x-slave bind fail, CR2888685*/
 	ret = swr_get_logical_dev_num(pdev, pdev->addr, &devnum);
+#else /* OPLUS_ARCH_EXTENDS */
+	do {
+		/* Add delay for soundwire enumeration */
+		usleep_range(100, 110);
+		ret = swr_get_logical_dev_num(pdev, pdev->addr, &devnum);
+	} while (ret && --retry);
+#endif /* OPLUS_ARCH_EXTENDS */
 	if (ret) {
 		dev_dbg(&pdev->dev,
 				"%s get devnum %d for dev addr %llx failed\n",

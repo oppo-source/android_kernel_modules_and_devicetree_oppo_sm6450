@@ -319,6 +319,11 @@ int oplus_panel_parse_features_config(struct dsi_panel *panel)
 	OPLUS_DSI_INFO("oplus,change-voltage-before-panel-bl-0-enable: %s\n",
 			panel->oplus_panel.change_voltage_before_panel_bl_0 ? "true" : "false");
 
+	panel->oplus_panel.ramless_aod_mode_cmd_switch_support = utils->read_bool(utils->data,
+			"oplus,ramless_aod_mode_cmd_switch_support");
+	OPLUS_DSI_INFO("oplus,ramless_aod_mode_cmd_switch_support: %s\n",
+			panel->oplus_panel.ramless_aod_mode_cmd_switch_support ? "true" : "false");
+
 	return 0;
 }
 

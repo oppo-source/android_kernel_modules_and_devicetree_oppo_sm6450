@@ -318,6 +318,11 @@
 
 	/* ofp config*/
 	oplus,ofp-fp-type = <0xA10>;
+	/* aod brightness config*/
+	oplus,video-mode-aod-brightness-change-enable;
+	oplus,video-mode-aod-brightness-value-count= [02];
+	oplus,video-mode-aod-high-brightness-value = [07 FF];
+	oplus,video-mode-aod-low-brightness-value = [03 FF];
 
 	/* power config */
 	qcom,panel_voltage_vddr_name = "vci";
@@ -325,6 +330,7 @@
 	qcom,panel_voltage_vddr_name = "vdd";
 	qcom,panel_voltage_vddr = <1 1230000 1230000 1230000>;
 
+	oplus,panel-reset-position = <0x02>;
 	oplus,panel-power-on-sequence = "1", "vdd", "3", "vci", "10";
 	oplus,panel-power-off-sequence = "1", "vci", "3", "vdd", "3";
 

@@ -13,5 +13,5 @@
 / {
 	model = "Qualcomm Technologies, Inc. Parrot QRD";
 	compatible = "qcom,parrot";
-	oplus,project-id = <25231 25233>;
+	oplus,project-id = <25231 25233 25234>;
 };

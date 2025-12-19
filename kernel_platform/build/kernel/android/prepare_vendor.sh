@@ -224,6 +224,11 @@ if [ "${RECOMPILE_KERNEL}" == "1" -o "${COPY_NEEDED}" == "1" ]; then
   rm -f ${ANDROID_KERNEL_OUT}/Image ${ANDROID_KERNEL_OUT}/vmlinux ${ANDROID_KERNEL_OUT}/System.map
 fi
 
+if [ -n "$OPLUS_KERNEL_STABILITY_DEBUG" ]; then
+  EXTRA_KBUILD_ARGS+=" --notrim --nokmi_symbol_list_strict_mode --nokmi_symbol_list_violations_check"
+  EXTRA_KBUILD_ARGS+=" --defconfig_fragment=//msm-kernel:arch/arm64/configs/oplus_debug_defconfig"
+fi
+
 ################################################################################
 # Read environment variables and write to bzl file
 OPLUS_FEATURES=$(export|grep -e "^declare -x OPLUS_FEATURE_BSP_"|sed 's/declare -x //g'|sed 's/"//g'|tr '\n' ' ')

@@ -48,11 +48,11 @@
             compatible = "hw-match, main-sub";
             use_tristate_gpio;
             aboard-gpio0 = <&tlmm 34 0>;
-            aboard-patterns = <0 1 0>;  /*0[high-resistance] 1[pull-down] 2[pull-up]*/
+            aboard-patterns = <0 1 0 0>;  /*0[high-resistance] 1[pull-down] 2[pull-up]*/
             /*region id*/
-            region-patterns = <5 3 6>;  /*1[CN] 2[IN] 3[EU] 4[US] 5[Asia] 6[JP]*/
+            region-patterns = <5 3 6 2>;  /*1[CN] 2[IN] 3[EU] 4[US] 5[Asia] 6[JP]*/
             /*main board*/
-            match-projects = <25231 25231 25233>;
+            match-projects = <25231 25231 25233 25234>;
         };
     };
 };
@@ -200,9 +200,9 @@
 
         panel_type = <18 7>;
         // type of tp_dev ,TP-BOE = 3;  TP-Tianma = 7, VXN = 18;
-        firmware_name = "0xAC334";
-        platform_support_project = <25231 25233>;
-        platform_support_project_dir = <25231 25231>;
+        firmware_name = "0xAC334", "0xAC334";
+        platform_support_project = <25231 25233 25234>;
+        platform_support_project_dir = <25231 25231 25231>;
         platform_support_project_commandline = "mdss_dsi_panel_ac334_p_b_a0029_vid","mdss_dsi_panel_ac334_p_7_a0025_vid";
         /* SW Support Feature Control */
         health_monitor_support;
@@ -234,6 +234,7 @@
         temperature_detect_support;
         temperature_detect_shellback_support;
         disable_touch_event_support;
+        fingerprint_error_report_support;
 
         /*
             *Virtual Key Config:
@@ -250,24 +251,8 @@
         */
         touchpanel,button-type = <4>;
         touchpanel.button-TRx = <0 0>;
-        FT3683G_PANEL10 {
-            /* Interrupt && Irq-gpio */
-            interrupt-parent = <&tlmm>;
-            interrupts = <65 0x2002>;
-            irq-gpio = <&tlmm 65 0x2002>;
-            reset-gpio = <&tlmm 64 0x1>;
-
-            touchpanel,tx-rx-num = <18 40>;
-            touchpanel,panel-coords = <17280 38400>;
-            touchpanel,display-coords = <1080 2400>;
-            touchpanel,max-num-support = <10>;
-            touchpanel,touchmajor-limit = <128 216>;
-            touchpanel,smooth-level = <0 110 115 120 140 155>;
-            touchpanel,smooth-level-charging = <0 110 115 120 140 155>;
-            touchpanel,sensitive-level = <0 19 16 13 11 10>;
-            touchpanel,high-frame-rate-time = <60>;
-            touchpanel,single-optimized-time = <8>;
-            tp_data_record_support;
+        FT3683G {
+            switch_report_rate;
         };
     };
 };

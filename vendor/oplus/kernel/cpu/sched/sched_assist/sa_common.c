@@ -14,7 +14,7 @@
 #include <linux/cpumask.h>
 #include <linux/sched/topology.h>
 #include <linux/sched/task.h>
-
+#include <linux/string.h>
 #include <linux/sched/cputime.h>
 #include <kernel/sched/sched.h>
 #include <fs/proc/internal.h>
@@ -1964,6 +1964,9 @@ void sched_setaffinity_tracking(struct task_struct *task, const struct cpumask *
 		clear_bit(OTS_STATE_SET_AFFINITY, &ots->state);
 		ots->affinity_pid = ots->affinity_tgid = -1;
 	} else {
+		if (strncmp(current->comm, "OomAdjuster", TASK_COMM_LEN) == 0)
+			return;
+
 		rcu_read_lock();
 		affinity_pid = current->pid;
 		leader = current->group_leader;

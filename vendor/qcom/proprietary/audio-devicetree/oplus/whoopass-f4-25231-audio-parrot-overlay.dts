@@ -7,5 +7,5 @@
 / {
     model = "Qualcomm Technologies, Inc. Parrot QRD, Whoopass-F4";
 
-    oplus,project-id = <25231 25232 25233>;
+    oplus,project-id = <25231 25232 25233 25234>;
 };

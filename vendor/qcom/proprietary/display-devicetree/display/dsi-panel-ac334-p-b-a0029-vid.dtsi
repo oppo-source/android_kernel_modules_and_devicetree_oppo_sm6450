@@ -205,6 +205,13 @@
 				39 00 00 40 00 00 10 91 FF E9 E9 E9 E9 FF E9 E9 E9 E9 FF E9 E9 E9 E9
 				39 00 00 40 00 00 04 FF 5A A5 00
 
+				39 00 00 40 00 00 04 FF 5A A5 06
+				15 00 00 40 00 00 02 B6 09
+				15 00 00 40 00 00 02 B7 03
+				39 00 00 40 00 00 04 FF 5A A5 02
+				39 00 00 40 00 00 03 88 08 C0
+				39 00 00 40 00 00 04 FF 5A A5 00
+
 				15 00 00 00 78 00 02 11 00
 				15 00 00 00 28 00 02 29 00
 				];
@@ -248,7 +255,9 @@
 				15 00 00 60 00 00 02 DD 00
 				39 00 00 60 00 00 04 FF 5A A5 00
 				05 00 00 60 00 00 01 39
-				39 00 00 20 00 00 05 51 0D BB 07 FF
+				39 00 00 60 00 00 03 FD 00 80
+				39 00 00 60 00 00 03 51 07 FF
+				39 00 00 20 00 00 03 FD 00 00
 				];
 
 				qcom,mdss-dsi-nolp-command = [
@@ -259,13 +268,51 @@
 				39 00 00 60 00 00 04 FF 5A A5 00
 				39 00 00 20 00 00 05 51 00 00 00 00
 				];
-
+				qcom,mdss-dsi-nolp-60hz-command = [
+				39 00 00 60 00 00 04 FF 5A A5 00
+				05 00 00 60 00 00 01 38
+				39 00 00 60 00 00 04 FF 5A A5 22
+				15 00 00 60 00 00 02 DD 10
+				39 00 00 60 00 00 04 FF 5A A5 00
+				39 00 00 60 00 00 05 51 00 00 00 00
+				39 00 00 60 00 00 04 FF 5A A5 00
+				15 00 00 60 00 00 02 38 00
+				15 00 00 20 00 00 02 60 A0
+				];
+				qcom,mdss-dsi-nolp-90hz-command = [
+				39 00 00 60 00 00 04 FF 5A A5 00
+				05 00 00 60 00 00 01 38
+				39 00 00 60 00 00 04 FF 5A A5 22
+				15 00 00 60 00 00 02 DD 10
+				39 00 00 60 00 00 04 FF 5A A5 00
+				39 00 00 60 00 00 05 51 00 00 00 00
+				39 00 00 60 00 00 04 FF 5A A5 00
+				15 00 00 60 00 00 02 38 00
+				15 00 00 20 00 00 02 60 90
+				];
+				qcom,mdss-dsi-nolp-120hz-command = [
+				39 00 00 60 00 00 04 FF 5A A5 00
+				05 00 00 60 00 00 01 38
+				39 00 00 60 00 00 04 FF 5A A5 22
+				15 00 00 60 00 00 02 DD 10
+				39 00 00 60 00 00 04 FF 5A A5 00
+				39 00 00 60 00 00 05 51 00 00 00 00
+				39 00 00 60 00 00 04 FF 5A A5 00
+				15 00 00 60 00 00 02 38 00
+				15 00 00 20 00 00 02 60 00
+				];
 				qcom,mdss-dsi-aod-high-mode-command = [
-				39 00 00 20 00 00 05 51 0D BB 07 FF
+				39 00 00 60 00 00 04 FF 5A A5 00
+				39 00 00 60 00 00 03 FD 00 80
+				39 00 00 60 00 00 03 51 07 FF
+				39 00 00 20 00 00 03 FD 00 00
 				];
 
 				qcom,mdss-dsi-aod-low-mode-command = [
-				39 00 00 20 00 00 05 51 0D BB 03 FF
+				39 00 00 60 00 00 04 FF 5A A5 00
+				39 00 00 60 00 00 03 FD 00 80
+				39 00 00 60 00 00 03 51 03 FF
+				39 00 00 20 00 00 03 FD 00 00
 				];
 
 				qcom,mdss-dsi-lhbm-icon-on-gama-update0-command = [
@@ -333,6 +380,9 @@
 				qcom,mdss-dsi-default-switch-page-command-state = "dsi_lp_mode";
 				qcom,mdss-dsi-lp1-command-state = "dsi_hs_mode";
 				qcom,mdss-dsi-nolp-command-state = "dsi_hs_mode";
+				qcom,mdss-dsi-nolp-60hz-command-state = "dsi_hs_mode";
+				qcom,mdss-dsi-nolp-90hz-command-state = "dsi_hs_mode";
+				qcom,mdss-dsi-nolp-120hz-command-state = "dsi_hs_mode";
 				qcom,mdss-dsi-aod-high-mode-command-state = "dsi_hs_mode";
 				qcom,mdss-dsi-aod-low-mode-command-state = "dsi_hs_mode";
 				qcom,mdss-dsi-lhbm-pressed-icon-on-command-state = "dsi_hs_mode";
@@ -400,6 +450,13 @@
 
 	/* ofp config*/
 	oplus,ofp-fp-type = <0xA10>;
+	oplus,ramless_aod_mode_cmd_switch_support;
+	oplus,ofp-ilitek-write-cmd-before-refresh-rate30hz;
+	/* aod brightness config*/
+	oplus,video-mode-aod-brightness-change-enable;
+	oplus,video-mode-aod-brightness-value-count= [02];
+	oplus,video-mode-aod-high-brightness-value = [07 FF];
+	oplus,video-mode-aod-low-brightness-value = [03 FF];
 
 	/* vid-timming-switch */
 	oplus,dsi_vid_timming_switch_post_enable;

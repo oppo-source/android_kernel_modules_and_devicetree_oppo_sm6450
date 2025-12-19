@@ -10,7 +10,8 @@ OPLUS_PARROT_BOARDS += milkyways35g-24263-parrot-overlay.dtbo\
                        zhuques3-24337-parrot-overlay.dtbo\
                        whoopassf4-25231-parrot-overlay.dtbo\
                        whoopassf4-25231-parrot-Gdpr-overlay.dtbo\
-                       whoopassf4-25233-parrot-overlay.dtbo
+                       whoopassf4-25233-parrot-overlay.dtbo\
+                       whoopassf4-25234-parrot-overlay.dtbo
 
 
 dtb-y += $(OPLUS_PARROT_BOARDS) $(PARROT_BASE_DTB)

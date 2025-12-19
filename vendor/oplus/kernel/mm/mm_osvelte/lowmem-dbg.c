@@ -630,6 +630,8 @@ int osvelte_lowmem_dbg_init(struct kobject *root)
 	cfg->interval = 10 * HZ;
 	if (total_ram >= PAGES(SZ_4G + SZ_8G))
 		cfg->watermark_low = PAGES(SZ_1G + SZ_512M);
+	else if (total_ram >= PAGES(SZ_4G + SZ_4G))
+		cfg->watermark_low = PAGES(SZ_1G + SZ_256M);
 	else if (total_ram >= PAGES(SZ_2G + SZ_2G))
 		cfg->watermark_low = PAGES(SZ_1G);
 	else if (total_ram >= PAGES(SZ_2G + SZ_1G))
@@ -637,7 +639,12 @@ int osvelte_lowmem_dbg_init(struct kobject *root)
 	else
 		cfg->watermark_low = PAGES(SZ_256M);
 	cfg->watermark_slab = PAGES(SZ_1G);
-	cfg->watermark_dmabuf = PAGES(SZ_2G + SZ_512M);
+
+	if (total_ram >= PAGES(SZ_8G))
+		cfg->watermark_dmabuf = PAGES(SZ_2G + SZ_512M);
+	else
+		cfg->watermark_dmabuf = PAGES(SZ_1G + SZ_512M);
+
 	cfg->watermark_gpu = PAGES(SZ_2G + SZ_512M);
 	cfg->watermark_other = PAGES(SZ_1G);
 

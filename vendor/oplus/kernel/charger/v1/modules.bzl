@@ -101,6 +101,11 @@ conditional_ko_deps = {
             "//vendor/oplus/kernel/touchpanel/kernelFwUpdate/bazel:oplus_bsp_fw_update",
         ],
     },
+    "CONFIG_OPLUS_FEATURE_FEEDBACK": {
+        True: [
+             "//vendor/oplus/kernel/dft/bazel:oplus_bsp_dft_kernel_fb",
+        ],
+    },
 }
 
 conditional_hdr_deps = {

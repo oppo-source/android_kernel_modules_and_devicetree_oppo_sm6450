@@ -3593,7 +3593,6 @@ static int syna_dev_probe(struct platform_device *pdev)
 			LOGI("Success to get panel info\n");
 			break;
 		}
-		msleep(20);
 	}
 
 	if (retry == 10) {

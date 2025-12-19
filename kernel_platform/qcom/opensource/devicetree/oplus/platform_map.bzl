@@ -15,6 +15,7 @@ _platform_map = {
             {"name": "whoopassf4-25231-parrot-overlay.dtbo"},
             {"name": "whoopassf4-25231-parrot-Gdpr-overlay.dtbo"},
             {"name": "whoopassf4-25233-parrot-overlay.dtbo"},
+            {"name": "whoopassf4-25234-parrot-overlay.dtbo"},
         ],
     },
     "qcs610": {

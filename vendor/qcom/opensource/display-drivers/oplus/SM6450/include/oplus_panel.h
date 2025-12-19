@@ -11,6 +11,7 @@
 #define _OPLUS_PANEL_H_
 #include <linux/soc/qcom/panel_event_notifier.h>
 #define MAX_PWM_CMD 16
+#define PANEL_REGS_CHECK_NUM_MAX 64
 
 /* In 120hz general solution, L1, L2, L3 means 1 Pulse 3 Pulse and 18 Pulse */
 enum PWM_STATE {
@@ -246,6 +247,8 @@ struct oplus_panel {
 	/* add for factory test fps switch, ignore some fps */
 	int ignore_mode_count;
 	u32 *ignore_mode;
+	/* add for aod mode cmd switch */
+	bool ramless_aod_mode_cmd_switch_support;
 };
 
 #endif /* _OPLUS_PANEL_H_ */

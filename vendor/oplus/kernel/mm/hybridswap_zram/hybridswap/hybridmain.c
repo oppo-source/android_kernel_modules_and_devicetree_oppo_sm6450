@@ -518,6 +518,12 @@ unsigned long memcg_anon_pages(struct mem_cgroup *memcg)
 		memcg_lru_pages(memcg, NR_ACTIVE_ANON);
 }
 
+static bool inactive_file_is_low(struct mem_cgroup *memcg)
+{
+	unsigned long nr_inactive_file = memcg_page_state_local(memcg, NR_INACTIVE_FILE);
+	return nr_inactive_file < (SZ_512M + SZ_256M) / PAGE_SIZE;
+}
+
 /* Shrink by free a batch of pages */
 static int force_shrink_batch(struct mem_cgroup * memcg,
 			      unsigned long nr_need_reclaim,
@@ -529,6 +535,10 @@ static int force_shrink_batch(struct mem_cgroup * memcg,
 	gfp_t gfp_mask = GFP_KERNEL;
 
 	while (*nr_reclaimed < nr_need_reclaim) {
+		if (reclaim_options != MEMCG_RECLAIM_MAY_SWAP &&
+		    inactive_file_is_low(memcg))
+			break;
+
 		unsigned long reclaimed;
 		reclaimed = try_to_free_mem_cgroup_pages(memcg,
 			batch, gfp_mask, reclaim_options);
@@ -547,8 +557,8 @@ static int force_shrink_batch(struct mem_cgroup * memcg,
 		}
 	}
 
-	log_warn("%s try to reclaim %lu pages and reclaim %lu pages\n",
-		 MEMCGRP_ITEM(memcg, name), nr_need_reclaim, *nr_reclaimed);
+	log_warn("%s try to reclaim %lu pages and reclaim %lu pages option: %d\n",
+		 MEMCGRP_ITEM(memcg, name), nr_need_reclaim, *nr_reclaimed, reclaim_options);
 	return ret;
 }
 
@@ -665,6 +675,9 @@ static ssize_t mem_cgroup_force_shrink(struct kernfs_open_file *of,
 	unsigned int reclaim_options = 0;
 
 	memcg = mem_cgroup_from_css(of_css(of));
+	if (file && inactive_file_is_low(memcg))
+		return -EBUSY;
+
 	nr_need_reclaim = get_reclaim_pages(memcg, file, buf, &batch, &nr_reclaimed);
 	if (!file) {
 		reclaim_options = MEMCG_RECLAIM_MAY_SWAP;

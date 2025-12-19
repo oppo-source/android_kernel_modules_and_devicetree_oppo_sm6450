@@ -458,6 +458,7 @@ void oplus_panel_tx_cmd_set_pre(struct dsi_panel *panel,
 				enum dsi_cmd_set_type *type)
 {
 	oplus_panel_cmd_switch(panel, type);
+	oplus_panel_video_mode_aod_off_cmd_switch(panel, type);
 	oplus_panel_cmdq_pack_handle(panel, *type, true);
 	oplus_panel_cmd_print(panel, *type);
 

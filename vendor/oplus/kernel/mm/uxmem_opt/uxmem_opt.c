@@ -578,7 +578,7 @@ static inline bool current_is_key_task(void)
 {
 	unsigned long im_flag = oplus_get_im_flag(current);
 
-	return test_task_ux(current) || rt_task(current)
+	return test_task_ux(current)
 		|| test_bit(IM_FLAG_SURFACEFLINGER, &im_flag)
 		|| test_bit(IM_FLAG_SYSTEMSERVER_PID, &im_flag)
 		|| ta_task(current)

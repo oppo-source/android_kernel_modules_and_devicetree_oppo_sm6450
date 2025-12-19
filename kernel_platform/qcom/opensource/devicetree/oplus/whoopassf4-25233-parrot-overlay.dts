@@ -44,12 +44,11 @@
     pinctrl-0 = <&rf_cable0_active>;
   };
   //#endif /* OPLUS_FEATURE_RF_CABLE_DETECT */
-
-  ufshc: ufshc@1d84000 {
-    qcom,ufs-vcc-always-on;
-  };
 };
 
+&ufshc_mem {
+	qcom,ufs-vcc-always-on;
+};
 
 &pm6150l_vadc {
 	/delete-property/ pinctrl-0;

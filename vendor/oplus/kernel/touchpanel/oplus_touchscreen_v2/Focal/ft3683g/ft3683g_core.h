@@ -389,6 +389,8 @@ struct chip_data_ft3683g {
 	u8 differ_mode;
 	u8 tp_differ_version;
 
+	u8 gesture_flag;
+
 	char *test_limit_name;
 	char *fw_name;
 	tp_dev tp_type;             /*tp_devices.h*/

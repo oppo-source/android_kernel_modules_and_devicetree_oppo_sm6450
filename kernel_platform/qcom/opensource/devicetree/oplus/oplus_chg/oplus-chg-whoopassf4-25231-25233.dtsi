@@ -983,8 +983,8 @@
 &battery_charger {
 	compatible = "oplus,hal_sm8450";
 
-	qcom,pmic_ftm_vph = "/sys/bus/spmi/drivers/pmic-spmi/0-00/c42d000.qcom,spmi:qcom,pmk8550@0:vadc@9000/iio:device0/in_voltage_pm7550ba_vph_pwr_input";
-	qcom,pmic_ftm_vbat = "/sys/bus/spmi/drivers/pmic-spmi/0-00/c42d000.qcom,spmi:qcom,pmk8550@0:vadc@9000/iio:device0/in_voltage_pm7550ba_vbat_sns_qbg_input";
+	qcom,pmic_ftm_vph = "/sys/bus/spmi/drivers/pmic-spmi/0-08/c42d000.qcom,spmi\:qcom,pm7250b@2\:vadc@3100/iio\:device2/in_voltage_vph_pwr_input";
+	qcom,pmic_ftm_vbat = "/sys/bus/spmi/drivers/pmic-spmi/0-08/c42d000.qcom,spmi\:qcom,pm7250b@2\:vadc@3100/iio\:device2/in_voltage_vbat_sns_input";
 	oplus,usb_aicl_enhance;
 
 	//oplus,voocphy_bidirect_cp_support;

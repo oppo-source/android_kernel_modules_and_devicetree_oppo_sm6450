@@ -63,12 +63,51 @@
 				//oplus,ofp-aod-off-black-frame-total-time = <42>;
 
 				qcom,mdss-dsi-on-command = [
+				/* Optimize low-brightness OD effect */
+				39 00 00 40 00 00 04 FF 5A A5 49
+				15 00 00 40 00 00 02 E0 01
+				39 00 00 40 00 00 04 FF 5A A5 5A
+				39 00 00 40 00 00 04 81 0C 12 0D
+				39 00 00 40 00 00 04 82 08 0E 0A
+				39 00 00 40 00 00 04 83 10 1A 10
+				39 00 00 40 00 00 04 84 0C 14 0D
+				39 00 00 40 00 00 04 85 07 0E 08
+				39 00 00 40 00 00 04 95 0F 20 0E
+				39 00 00 40 00 00 04 96 0D 1C 0D
+				39 00 00 40 00 00 04 97 0B 18 0A
+				39 00 00 40 00 00 04 98 09 16 09
+				39 00 00 40 00 00 04 99 06 0F 07
+				39 00 00 40 00 00 04 9C 12 24 13
+				39 00 00 40 00 00 04 9D 0E 20 0F
+				39 00 00 40 00 00 04 9E 0D 19 0D
+				39 00 00 40 00 00 04 9F 0A 16 0B
+				39 00 00 40 00 00 04 A0 06 0F 07
+				39 00 00 40 00 00 04 A5 05 0E 05
+				39 00 00 40 00 00 04 A6 04 09 04
+				39 00 00 40 00 00 04 A7 08 15 08
+				39 00 00 40 00 00 04 A8 06 11 06
+				39 00 00 40 00 00 04 A9 05 0B 05
+				39 00 00 40 00 00 04 C9 04 0A 04
+				39 00 00 40 00 00 04 CA 03 05 03
+				39 00 00 40 00 00 04 CB 07 0F 07
+				39 00 00 40 00 00 04 CC 05 0C 05
+				39 00 00 40 00 00 04 CD 04 07 04
+				39 00 00 40 00 00 04 FF 5A A5 5B
+				39 00 00 40 00 00 04 81 03 07 03
+				39 00 00 40 00 00 04 82 03 04 03
+				39 00 00 40 00 00 04 83 05 0B 05
+				39 00 00 40 00 00 04 84 03 08 04
+				39 00 00 40 00 00 04 85 02 05 03
+				39 00 00 00 00 00 04 FF 5A A5 00
+				/* Eswire one frame ahead */
 				39 00 00 40 00 00 04 FF 5A A5 1C
 				39 00 00 40 00 00 05 E3 08 00 00 84
+				/* esd */
 				39 00 00 40 00 00 04 FF 5A A5 20
 				15 00 00 40 00 00 02 DE B0
 				39 00 00 40 00 00 04 FF 5A A5 49
 				15 00 00 40 00 00 02 D8 3C
+				/* auto trim */
 				39 00 00 40 00 00 04 FF 5A A5 22
 				39 00 00 40 00 00 0C DC 41 B3 11 11 20 41 B3 11 22 00 F8
 				15 00 00 40 00 00 02 DF 01
@@ -80,10 +119,10 @@
 				15 00 00 40 00 00 02 DD 10
 				39 00 00 40 00 00 06 E0 02 1F 5F 21 04
 				39 00 00 00 00 00 04 FF 5A A5 00
-
+				/* 11 don't reload */
 				39 00 00 40 00 00 04 FF 5A A5 08
 				15 00 00 40 00 00 02 C8 62
-
+				/* 1bit ESD */
 				39 00 00 40 00 00 04 FF 5A A5 06
 				15 00 00 40 00 00 02 C6 81
 				15 00 00 40 00 00 02 C7 14
@@ -98,6 +137,7 @@
 				15 00 00 40 00 00 02 D4 40
 				15 00 00 40 00 00 02 F5 54
 				15 00 00 40 00 00 02 E0 22
+				/* Updated 20250702 */
 				39 00 00 40 00 00 04 FF 5A A5 13
 				15 00 00 40 00 00 02 EA 9D
 				39 00 00 40 00 00 04 FF 5A A5 31
@@ -119,6 +159,7 @@
 				39 00 00 40 00 00 04 FF 5A A5 06
 				15 00 00 40 00 00 02 A1 D0
 				15 00 00 40 00 00 02 D2 00
+				/* PLL 138.6 Linetime=3.43 Re-gen Hsync */
 				39 00 00 40 00 00 04 FF 5A A5 07
 				15 00 00 40 00 00 02 C0 08
 				15 00 00 40 00 00 02 C2 05
@@ -134,7 +175,7 @@
 				15 00 00 40 00 00 02 D3 3C
 				15 00 00 40 00 00 02 D4 84
 				15 00 00 40 00 00 02 D5 F3
-
+				/* dsc 10bit V1.2 */
 				15 00 00 40 00 00 02 8A 01
 				39 00 00 40 00 00 62 80 00 00 00 12 00 00 ab 30 80 09
 						44 04 38 02 51 02 1c 02 1c 02
@@ -167,7 +208,7 @@
 				39 00 00 40 00 00 04 FF 5A A5 1F
 				39 00 00 40 00 00 03 8F 09 19
 				39 00 00 40 00 00 03 91 09 1A
-
+				/* VRF4 */
 				39 00 00 40 00 00 04 FF 5A A5 51
 				39 00 00 40 00 00 07 A3 0E 00 00 00 01 00
 				39 00 00 40 00 00 07 A7 0E 00 00 00 01 00
@@ -177,41 +218,45 @@
 				39 00 00 40 00 00 05 81 00 00 00 00
 				39 00 00 40 00 00 04 FF 5A A5 00
 				39 00 00 40 00 00 04 51 00 00 00
-
+				/*120 hz*/
 				39 00 00 40 00 00 04 FF 5A A5 00
 				15 00 00 40 00 00 02 38 00
 				15 00 00 40 00 00 02 60 00
-
+				/* IRC */
 				15 00 00 40 00 00 02 6D 01
-
+				/* PHBM */
 				15 00 00 40 00 00 02 6E 00
-
+				/* BC On, Dimming Off */
 				15 00 00 40 00 00 02 53 24
-
+				/* lhbm coordinate */
 				39 00 00 40 00 00 04 FF 5A A5 00
 				15 00 00 40 00 00 02 96 08
 				15 00 00 40 00 00 02 97 79
 				15 00 00 40 00 00 02 98 02
 				15 00 00 40 00 00 02 99 1C
-
+				/* lhbm size */
 				39 00 00 40 00 00 04 FF 5A A5 1E
 				39 00 00 40 00 00 04 B2 54 57 F0
 				39 00 00 40 00 00 04 FF 5A A5 00
-
+				/* GIR */
 				39 00 00 40 00 00 04 FF 5A A5 1E
 				15 00 00 40 00 00 02 80 A9
 				39 00 00 40 00 00 10 8F FF E9 E9 E9 E9 FF E9 E9 E9 E9 FF E9 E9 E9 E9
 				39 00 00 40 00 00 10 90 FF E9 E9 E9 E9 FF E9 E9 E9 E9 FF E9 E9 E9 E9
 				39 00 00 40 00 00 10 91 FF E9 E9 E9 E9 FF E9 E9 E9 E9 FF E9 E9 E9 E9
 				39 00 00 40 00 00 04 FF 5A A5 00
-
+				/* AOD on/off Black Frame Setting */
 				39 00 00 40 00 00 04 FF 5A A5 06
 				15 00 00 40 00 00 02 B6 09
 				15 00 00 40 00 00 02 B7 03
 				39 00 00 40 00 00 04 FF 5A A5 02
 				39 00 00 40 00 00 03 88 08 C0
+				/* Flexible gamma on */
+				39 00 00 40 00 00 04 FF 5A A5 24
+				15 00 00 40 00 00 02 A1 00
+				15 00 00 40 00 00 02 A2 43
+				15 00 00 40 00 00 02 A3 62
 				39 00 00 40 00 00 04 FF 5A A5 00
-
 				15 00 00 00 78 00 02 11 00
 				15 00 00 00 28 00 02 29 00
 				];
@@ -243,11 +288,11 @@
 
 				qcom,dsi-panel-date-switch-command = [
 				/*read panel info switch page 1D*/
-				39 00 00 00 00 00 04 F0 5A A5 1D
+				39 00 00 00 00 00 04 FF 5A A5 1D
 				];
 
 				qcom,mdss-dsi-default-switch-page-command = [
-				39 00 00 00 00 00 04 F0 5A A5 00
+				39 00 00 00 00 00 04 FF 5A A5 00
 				];
 
 				qcom,mdss-dsi-lp1-command = [
@@ -376,8 +421,8 @@
 				qcom,mdss-dsi-vid-120hz-switch-command-state = "dsi_lp_mode";
 				qcom,mdss-dsi-vid-90hz-switch-command-state = "dsi_lp_mode";
 				qcom,mdss-dsi-vid-60hz-switch-command-state = "dsi_lp_mode";
-				qcom,dsi-panel-date-switch-command-state = "dsi_lp_mode";
-				qcom,mdss-dsi-default-switch-page-command-state = "dsi_lp_mode";
+				qcom,dsi-panel-date-switch-command-state = "dsi_hs_mode";
+				qcom,mdss-dsi-default-switch-page-command-state = "dsi_hs_mode";
 				qcom,mdss-dsi-lp1-command-state = "dsi_hs_mode";
 				qcom,mdss-dsi-nolp-command-state = "dsi_hs_mode";
 				qcom,mdss-dsi-nolp-60hz-command-state = "dsi_hs_mode";
@@ -465,7 +510,7 @@
 	oplus,dsi-serial-number-enabled;
 	oplus,dsi-serial-number-switch-page;
 	oplus,dsi-serial-number-index= <0>;
-	oplus,dsi-serial-number-reg= <0x80>;
+	oplus,dsi-serial-number-reg= <0x82>;
 	oplus,dsi-serial-number-read-count= <7>;
 
 	/* ESD CONFIG */

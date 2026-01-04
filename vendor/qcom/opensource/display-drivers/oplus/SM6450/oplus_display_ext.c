@@ -506,6 +506,8 @@ int oplus_display_read_serial_number(struct dsi_display *display, unsigned long 
 		panel_serial_info.year = (read[panel_serial_info.reg_index] & 0xF0) >> 0x4;
 		if (!strcmp(display->panel->name, "AC292 P 7 A0025 vid mode panel"))
 			panel_serial_info.year += 10;
+		if (!strcmp(display->panel->name, "AC334 P 7 A0025 vid mode panel") || !strcmp(display->panel->name, "AC334 P b A0029 vid mode panel"))
+			panel_serial_info.year += 9;
 
 		panel_serial_info.month		= read[panel_serial_info.reg_index]	& 0x0F;
 		panel_serial_info.day		= read[panel_serial_info.reg_index + 1]	& 0x1F;

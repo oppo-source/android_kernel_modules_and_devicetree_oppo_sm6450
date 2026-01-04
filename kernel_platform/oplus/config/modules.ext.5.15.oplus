@@ -19,5 +19,4 @@
 ../vendor/oplus/kernel/cpu/game_opt
 ../vendor/oplus/kernel/mm/memleak_detect
 ../vendor/oplus/kernel/network/oplus_game_first
-../vendor/oplus/kernel/network/oplus_vip_task
 ../vendor/oplus/kernel/wifi/oplus_wifi_wsa

@@ -1559,6 +1559,7 @@ void oplus_turn_off_power_when_adsp_crash(void)
 	bcdev->otg_online = false;
 	oplus_chg_ic_virq_trigger(bcdev->buck_ic, OPLUS_IC_VIRQ_SVID);
 
+	schedule_delayed_work(&bcdev->plugin_irq_work, 0);
 	if (bcdev->otg_online == true) {
 		bcdev->otg_online = false;
 		if (bcdev->otg_boost_src == OTG_BOOST_SOURCE_EXTERNAL) {
@@ -1598,6 +1599,7 @@ void oplus_adsp_crash_recover_work(void)
 		return;
 	}
 
+	chg_info("oplus_adsp_crash_recover_work");
 	schedule_delayed_work(&bcdev->adsp_crash_recover_work,
 			      round_jiffies_relative(msecs_to_jiffies(1500)));
 }
@@ -1622,6 +1624,7 @@ static void oplus_adsp_crash_recover_func(struct work_struct *work)
 	struct battery_chg_dev *bcdev =
 		container_of(work, struct battery_chg_dev, adsp_crash_recover_work.work);
 
+	chg_info("oplus_adsp_crash_recover_func");
 	if (oplus_chg_get_voocphy_support(bcdev) == ADSP_VOOCPHY) {
 		oplus_ap_init_adsp_gague(bcdev);
 		oplus_adsp_voocphy_reset_status();
@@ -1631,6 +1634,7 @@ static void oplus_adsp_crash_recover_func(struct work_struct *work)
 	schedule_delayed_work(&bcdev->otg_init_work, 0);
 	schedule_delayed_work(&bcdev->voocphy_enable_check_work,
 			      round_jiffies_relative(msecs_to_jiffies(0)));
+	schedule_delayed_work(&bcdev->plugin_irq_work, 0);
 }
 
 static bool is_chg_disable_votable_available(struct battery_chg_dev *bcdev)

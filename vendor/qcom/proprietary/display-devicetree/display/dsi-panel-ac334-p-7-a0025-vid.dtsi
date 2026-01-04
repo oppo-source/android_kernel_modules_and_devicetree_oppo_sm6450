@@ -63,6 +63,28 @@
 				oplus,ofp-aod-off-black-frame-total-time = <42>;
 
 				qcom,mdss-dsi-on-command = [
+				/* OD */
+				39 00 00 40 00 00 06 F0 55 AA 52 08 08
+				39 00 00 40 00 00 05 E0 33 01 01 01
+				15 00 00 40 00 00 02 6F 06
+				39 00 00 40 00 00 0E E0 80 00 21 32 43 54 65 76 87 98 99 99 99
+				39 00 00 40 00 00 09 E1 15 2A 25 12 00 00 00 00
+				39 00 00 40 00 00 09 E3 00 00 00 0A 00 00 00 00
+				39 00 00 40 00 00 07 E4 0A 0A 0A 05 0B 1D
+				15 00 00 40 00 00 02 6F 08
+				39 00 00 40 00 00 09 E1 0F 10 10 10 00 00 00 00
+				15 00 00 40 00 00 02 6F 10
+				39 00 00 40 00 00 09 E1 12 0A 0A 0A 00 00 00 00
+				15 00 00 40 00 00 02 6F 18
+				39 00 00 40 00 00 09 E1 12 06 06 06 00 00 00 00
+				15 00 00 40 00 00 02 6F 20
+				39 00 00 40 00 00 09 E1 10 00 00 00 00 00 00 00
+				15 00 00 40 00 00 02 6F 28
+				39 00 00 40 00 00 09 E1 0D 00 00 00 00 00 00 00
+				15 00 00 40 00 00 02 6F 30
+				39 00 00 40 00 00 09 E1 06 00 00 00 00 00 00 00
+				15 00 00 40 00 00 02 6F 38
+				39 00 00 00 00 00 09 E1 04 00 00 00 00 00 00 00
 				/* Power on */
 				39 00 00 40 00 00 06 F0 55 AA 52 08 00
 				15 00 00 40 00 00 02 6F 1D
@@ -162,8 +184,8 @@
 				];
 
 				qcom,dsi-panel-date-switch-command = [
-					/*read panel info switch page 01*/
-				39 00 00 00 00 00 06 F0 55 AA 52 08 01
+				/*read panel info switch page 03*/
+				39 00 00 00 00 00 06 F0 55 AA 52 08 03
 				];
 
 				qcom,mdss-dsi-default-switch-page-command = [
@@ -348,7 +370,7 @@
 	oplus,dsi-serial-number-enabled;
 	oplus,dsi-serial-number-switch-page;
 	oplus,dsi-serial-number-index= <0>;
-	oplus,dsi-serial-number-reg= <0xD7>;
+	oplus,dsi-serial-number-reg= <0xDF>;
 	oplus,dsi-serial-number-read-count= <7>;
 
 	/* ESD CONFIG */
